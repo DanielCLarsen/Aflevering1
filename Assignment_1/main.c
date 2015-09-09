@@ -5,6 +5,7 @@ struct data{
 	int sensor_input;
 };
 
+/* main : The primary unction. */
 int main(int argc, char *argv[])
 {
 	struct data test = {0};
