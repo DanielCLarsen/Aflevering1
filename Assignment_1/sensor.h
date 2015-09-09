@@ -1,2 +1,2 @@
-int getNextData(); // Please implement me in Sensor.c
+int getNextData(void); // Please implement me in Sensor.c
 

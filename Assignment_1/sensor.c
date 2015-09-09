@@ -2,16 +2,9 @@
 #include <stdlib.h>
 #include "sensor.h"
 
-int getNextData(){
+int getNextData(void){
 	int value;
+	fscanf(file,"%i",&value);
 
-
-	static const char filename[] = "ECG.txt";
-	FILE *file = fopen(filename,"r");
-	if (fscanf(file,"%i",&value) != EOF){
-	} else{
-		rewind(file);
-		fscanf(file,"%i",&value);
-	}
 	return value;
 }
