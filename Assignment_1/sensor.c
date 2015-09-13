@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include "sensor.h"
 
-int getNextData(void){
+int getNextData(FILE *file){
 	int value;
-	fscanf(file,"%i",&value);
+		fscanf(file,"%i",&value);
 
 	return value;
 }

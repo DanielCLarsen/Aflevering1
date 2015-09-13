@@ -4,14 +4,22 @@
 struct data{
 	int sensor_input;
 };
+struct low_pass_filter{
 
-/* main : The primary unction. */
+};
+
+
 int main(int argc, char *argv[])
 {
-	struct data test = {0};
 	static const char filename[] = "ECG.txt";
 	FILE *file = fopen(filename,"r");
-	test.sensor_input = getNextData();
-	printf("%i",test.sensor_input);
+	struct data test = {0};
+	test.sensor_input = getNextData(file);
+
+	while(test.sensor_input != EOF){
+		printf("%i \n",test.sensor_input);
+		test.sensor_input = getNextData(file);
+	}
+
 	return 0;
 }
