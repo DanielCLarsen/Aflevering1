@@ -1,0 +1,191 @@
+[33mcommit f6e746985276c0db4c982bf8d1c8991189cde708[m
+Author: Daniel L <daniel.cl@yahoo.com>
+Date:   Wed Sep 9 13:21:55 2015 +0200
+
+    Second commit.
+
+[1mdiff --git a/.cproject b/.cproject[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9d041c2[m
+[1m--- /dev/null[m
+[1m+++ b/.cproject[m
+[36m@@ -0,0 +1,105 @@[m
+[32m+[m[32m<?xml version="1.0" encoding="UTF-8" standalone="no"?>[m
+[32m+[m[32m<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">[m
+[32m+[m	[32m<storageModule moduleId="org.eclipse.cdt.core.settings">[m
+[32m+[m		[32m<cconfiguration id="cdt.managedbuild.config.gnu.exe.debug.1859161057">[m
+[32m+[m			[32m<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.debug.1859161057" moduleId="org.eclipse.cdt.core.settings" name="Debug">[m
+[32m+[m				[32m<externalSettings/>[m
+[32m+[m				[32m<extensions>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m				[32m</extensions>[m
+[32m+[m			[32m</storageModule>[m
+[32m+[m			[32m<storageModule moduleId="cdtBuildSystem" version="4.0.0">[m
+[32m+[m				[32m<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.debug.1859161057" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug">[m
+[32m+[m					[32m<folderInfo id="cdt.managedbuild.config.gnu.exe.debug.1859161057." name="/" resourcePath="">[m
+[32m+[m						[32m<toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.1719315905" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">[m
+[32m+[m							[32m<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.1915124759" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>[m
+[32m+[m							[32m<builder buildPath="${workspace_loc:/Assignment1}/Debug" id="cdt.managedbuild.target.gnu.builder.exe.debug.1057472100" managedBuildOn="true" name="Gnu Make Builder.Debug" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.archiver.base.880355986" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.581812112" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">[m
+[32m+[m								[32m<option id="gnu.cpp.compiler.exe.debug.option.optimization.level.493359627" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>[m
+[32m+[m								[32m<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1727369761" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>[m
+[32m+[m							[32m</tool>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.396520161" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">[m
+[32m+[m								[32m<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.1718380167" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>[m
+[32m+[m								[32m<option id="gnu.c.compiler.exe.debug.option.debugging.level.1674514312" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>[m
+[32m+[m								[32m<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1271380276" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>[m
+[32m+[m							[32m</tool>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1743375051" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">[m
+[32m+[m								[32m<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.997532727" superClass="cdt.managedbuild.tool.gnu.c.linker.input">[m
+[32m+[m									[32m<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>[m
+[32m+[m									[32m<additionalInput kind="additionalinput" paths="$(LIBS)"/>[m
+[32m+[m								[32m</inputType>[m
+[32m+[m							[32m</tool>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.880786221" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug"/>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.assembler.exe.debug.709098004" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.debug">[m
+[32m+[m								[32m<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1449947806" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>[m
+[32m+[m							[32m</tool>[m
+[32m+[m						[32m</toolChain>[m
+[32m+[m					[32m</folderInfo>[m
+[32m+[m				[32m</configuration>[m
+[32m+[m			[32m</storageModule>[m
+[32m+[m			[32m<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>[m
+[32m+[m		[32m</cconfiguration>[m
+[32m+[m		[32m<cconfiguration id="cdt.managedbuild.config.gnu.exe.release.1539530226">[m
+[32m+[m			[32m<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.gnu.exe.release.1539530226" moduleId="org.eclipse.cdt.core.settings" name="Release">[m
+[32m+[m				[32m<externalSettings/>[m
+[32m+[m				[32m<extensions>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m					[32m<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>[m
+[32m+[m				[32m</extensions>[m
+[32m+[m			[32m</storageModule>[m
+[32m+[m			[32m<storageModule moduleId="cdtBuildSystem" version="4.0.0">[m
+[32m+[m				[32m<configuration artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.release.1539530226" name="Release" parent="cdt.managedbuild.config.gnu.exe.release">[m
+[32m+[m					[32m<folderInfo id="cdt.managedbuild.config.gnu.exe.release.1539530226." name="/" resourcePath="">[m
+[32m+[m						[32m<toolChain id="cdt.managedbuild.toolchain.gnu.exe.release.662616691" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.release">[m
+[32m+[m							[32m<targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.release.1212180994" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.release"/>[m
+[32m+[m							[32m<builder buildPath="${workspace_loc:/Assignment1}/Release" id="cdt.managedbuild.target.gnu.builder.exe.release.2027623900" managedBuildOn="true" name="Gnu Make Builder.Release" superClass="cdt.managedbuild.target.gnu.builder.exe.release"/>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.archiver.base.236115597" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1403409257" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release">[m
+[32m+[m								[32m<option id="gnu.cpp.compiler.exe.release.option.optimization.level.1631318745" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>[m
+[32m+[m								[32m<option id="gnu.cpp.compiler.exe.release.option.debugging.level.2073141791" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>[m
+[32m+[m							[32m</tool>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.release.2100530248" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.release">[m
+[32m+[m								[32m<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.exe.release.option.optimization.level.1492565129" superClass="gnu.c.compiler.exe.release.option.optimization.level" valueType="enumerated"/>[m
+[32m+[m								[32m<option id="gnu.c.compiler.exe.release.option.debugging.level.1178620142" superClass="gnu.c.compiler.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>[m
+[32m+[m								[32m<inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.740477804" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>[m
+[32m+[m							[32m</tool>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.1044071239" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release">[m
+[32m+[m								[32m<inputType id="cdt.managedbuild.tool.gnu.c.linker.input.962328016" superClass="cdt.managedbuild.tool.gnu.c.linker.input">[m
+[32m+[m									[32m<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>[m
+[32m+[m									[32m<additionalInput kind="additionalinput" paths="$(LIBS)"/>[m
+[32m+[m								[32m</inputType>[m
+[32m+[m							[32m</tool>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.12702022" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release"/>[m
+[32m+[m							[32m<tool id="cdt.managedbuild.tool.gnu.assembler.exe.release.281730641" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.exe.release">[m
+[32m+[m								[32m<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1117891451" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>[m
+[32m+[m							[32m</tool>[m
+[32m+[m						[32m</toolChain>[m
+[32m+[m					[32m</folderInfo>[m
+[32m+[m				[32m</configuration>[m
+[32m+[m			[32m</storageModule>[m
+[32m+[m		[32m</cconfiguration>[m
+[32m+[m	[32m</storageModule>[m
+[32m+[m	[32m<storageModule moduleId="cdtBuildSystem" version="4.0.0">[m
+[32m+[m		[32m<project id="Assignment1.cdt.managedbuild.target.gnu.exe.765782635" name="Executable" projectType="cdt.managedbuild.target.gnu.exe"/>[m
+[32m+[m	[32m</storageModule>[m
+[32m+[m	[32m<storageModule moduleId="scannerConfiguration">[m
+[32m+[m		[32m<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>[m
+[32m+[m		[32m<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.debug.1859161057;cdt.managedbuild.config.gnu.exe.debug.1859161057.;cdt.managedbuild.tool.gnu.c.compiler.exe.debug.396520161;cdt.managedbuild.tool.gnu.c.compiler.input.1271380276">[m
+[32m+[m			[32m<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>[m
+[32m+[m		[32m</scannerConfigBuildInfo>[m
+[32m+[m		[32m<scannerConfigBuildInfo instanceId="cdt.managedbuild.config.gnu.exe.release.1539530226;cdt.managedbuild.config.gnu.exe.release.1539530226.;cdt.managedbuild.tool.gnu.c.compiler.exe.release.2100530248;cdt.managedbuild.tool.gnu.c.compiler.input.740477804">[m
+[32m+[m			[32m<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>[m
+[32m+[m		[32m</scannerConfigBuildInfo>[m
+[32m+[m	[32m</storageModule>[m
+[32m+[m	[32m<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>[m
+[32m+[m[32m</cproject>[m
+[1mdiff --git a/.project b/.project[m
+[1mnew file mode 100644[m
+[1mindex 0000000..cd15439[m
+[1m--- /dev/null[m
+[1m+++ b/.project[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32m<?xml version="1.0" encoding="UTF-8"?>[m
+[32m+[m[32m<projectDescription>[m
+[32m+[m	[32m<name>Assignment1</name>[m
+[32m+[m	[32m<comment></comment>[m
+[32m+[m	[32m<projects>[m
+[32m+[m	[32m</projects>[m
+[32m+[m	[32m<buildSpec>[m
+[32m+[m		[32m<buildCommand>[m
+[32m+[m			[32m<name>org.eclipse.cdt.managedbuilder.core.genmakebuilder</name>[m
+[32m+[m			[32m<triggers>clean,full,incremental,</triggers>[m
+[32m+[m			[32m<arguments>[m
+[32m+[m			[32m</arguments>[m
+[32m+[m		[32m</buildCommand>[m
+[32m+[m		[32m<buildCommand>[m
+[32m+[m			[32m<name>org.eclipse.cdt.managedbuilder.core.ScannerConfigBuilder</name>[m
+[32m+[m			[32m<triggers>full,incremental,</triggers>[m
+[32m+[m			[32m<arguments>[m
+[32m+[m			[32m</arguments>[m
+[32m+[m		[32m</buildCommand>[m
+[32m+[m	[32m</buildSpec>[m
+[32m+[m	[32m<natures>[m
+[32m+[m		[32m<nature>org.eclipse.cdt.core.cnature</nature>[m
+[32m+[m		[32m<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>[m
+[32m+[m		[32m<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>[m
+[32m+[m	[32m</natures>[m
+[32m+[m[32m</projectDescription>[m
+[1mdiff --git a/Assignment_1/Sensor.c b/Assignment_1/Sensor.c[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b7140bd[m
+[1m--- /dev/null[m
+[1m+++ b/Assignment_1/Sensor.c[m
+[36m@@ -0,0 +1,25 @@[m
+[32m+[m[32m#include <stdio.h>[m
+[32m+[m[32m#include <stdlib.h>[m
+[32m+[m[32m#include "Sensor.h"[m
+[32m+[m
+[32m+[m[32mint getNextData(){[m
+[32m+[m	[32m// Implement me according to the Assignment 1 manual[m
+[32m+[m[32m#include <stdio.h>[m
+[32m+[m
+[32m+[m[32mint main(int argc, char *argv[])[m
+[32m+[m[32m{[m
+[32m+[m	[32mint value;[m
+[32m+[m	[32mstatic const char filename[] = "ECG.txt";[m
+[32m+[m	[32mFILE *file = fopen(filename,"r");[m
+[32m+[m	[32mfscanf(file,"%i",&value)[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/Assignment_1/Sensor.h b/Assignment_1/Sensor.h[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9ab7cea[m
+[1m--- /dev/null[m
+[1m+++ b/Assignment_1/Sensor.h[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mint getNextData(); // Please implement me in Sensor.c[m
+[32m+[m
+[1mdiff --git a/Assignment_1/main.c b/Assignment_1/main.c[m
+[1mnew file mode 100644[m
+[1mindex 0000000..e69de29[m
