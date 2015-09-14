@@ -10,8 +10,7 @@ int main(int argc, char *argv[])
 	int test = 1;
 	int increment = 0;
 	dataset.ix = 0;
-	dataset.dz = 33; //sets the size of the data array for future refference
-
+	dataset.dz = 33;
 
 	//opens the file
 	dataset.file_p = fopen(filename,"r");
@@ -21,7 +20,8 @@ int main(int argc, char *argv[])
 	while(test == 1){
 		dataset.raw_data[dataset.ix] = getNextData(dataset.file_p);
 		dataset.lp_data[dataset.ix]=lp_filter(&dataset);
-		printf("raw: %i , filtered: %i, ix: %i\n",dataset.raw_data[dataset.ix],dataset.lp_data[dataset.ix],dataset.ix);
+		dataset.hp_data[dataset.ix]=hp_filter(&dataset);
+		printf("high pass: %i, raw: %i , low pass: %i, ix: %i\n",dataset.hp_data[dataset.ix],dataset.raw_data[dataset.ix],dataset.lp_data[dataset.ix],dataset.ix);
 		dataset.ix = (dataset.ix+1)%dataset.dz;
 		increment = increment +1;
 		if (increment == dataset.dz*2){
