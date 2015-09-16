@@ -19,6 +19,7 @@ typedef struct{
 
 typedef struct{
 	int PEAKS[2][33];
+	int R_PEAKS[2][33];
  int NPKF;
 int SPKF;
 int THRESHOLD1;
@@ -40,3 +41,5 @@ int sq_filter(datastruct *dataset);
 int mw_filter(datastruct *dataset);
 
 int p_search(datastruct *dataset);
+
+void r_detecter(peakstruct *peakdata, int current_peak);

@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
 		if (p_search(&dataset)){
 			peakdata.PEAKS[0][peak_index%dataset.dz]=(iterations-1);
 			peakdata.PEAKS[1][peak_index%dataset.dz]=dataset.mw_data[((dataset.ix+dataset.dz-p_search_offset+1)%dataset.dz)];
+			r_detect(&peakdata,peak_index);
 			printf("peak at: ix = %i, value of peak = %i \n",peakdata.PEAKS[0][peak_index],peakdata.PEAKS[1][peak_index]);
 			peak_index = (peak_index+1);
 		}
