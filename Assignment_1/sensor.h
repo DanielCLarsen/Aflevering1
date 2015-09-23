@@ -24,8 +24,7 @@ typedef struct{
 	int THRESHOLD1;
 	int THRESHOLD2;
 	int time;
-	int RRintervals1[8];
-	int RRintervals2[8];
+	int RRintervals[8];
 	int RRaverage1;
 	int RRaverage2;
 	int RRlow;
@@ -52,3 +51,5 @@ int p_search(datastruct *dataset);
 int r_detecter(peakstruct *peakdata, int current_peak);
 
 int avg_check(peakstruct *peakdata,int current_r_interval);
+
+int searchback(peakstruct *peakdata, datastruct *dataset, int index);

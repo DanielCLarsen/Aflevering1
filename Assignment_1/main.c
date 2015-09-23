@@ -68,18 +68,18 @@ int main(int argc, char *argv[]) {
 
 				if(peakdata.R_PEAKS[1][(r_peak_index-1)%dataset.dz] != 0){ //if the previous point in the r_peaks[] is not 0
 
-					peakdata.RRintervals2[RecentRPeaks_index]= (iterations-peakdata.R_PEAKS[0][(r_peak_index-1)%dataset.dz]);
+					peakdata.RRintervals[RecentRPeaks_index]= (iterations-peakdata.R_PEAKS[0][(r_peak_index-1)%dataset.dz]);
 
 				RecentRPeaks_index = (RecentRPeaks_index+1)%8;
-					if(peakdata.RRintervals2[7]!=0){
+					if(peakdata.RRintervals[7]!=0){
 						for(int i=0; i < 8 ;i++){
 							int Average2sum=0;
-							Average2sum+=peakdata.RRintervals2[i];
+							Average2sum+=peakdata.RRintervals[i];
 							peakdata.RRaverage2 = Average2sum/8;
 
 						}
-						if(avg_check(&peakdata,peakdata.RRintervals2[RecentRPeaks_index])){
-
+						if(avg_check(&peakdata,peakdata.RRintervals[RecentRPeaks_index])){
+							searchback(&peakdata,&dataset,r_peak_index);
 
 						}
 
