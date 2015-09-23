@@ -1,4 +1,5 @@
 typedef struct{
+
 	int sensor_input;
 	FILE *file_p;
 	int dz;

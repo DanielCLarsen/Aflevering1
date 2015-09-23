@@ -16,6 +16,10 @@ int main(int argc, char *argv[]) {
 	int RecentPeaks_index = 0;
 	dataset.ix = 0; //index tracker for reading/writing data-array elements
 	dataset.dz = 33; //tracker of the array lengths.
+	peakdata.NPKF 		= 800;
+	peakdata.SPKF 		= 5000;
+	peakdata.THRESHOLD1 = 4000;
+	peakdata.THRESHOLD2 = 2000;
 	peakdata.NPKF = 800;
 	peakdata.SPKF = 5000;
 	peakdata.THRESHOLD1 = 4000;

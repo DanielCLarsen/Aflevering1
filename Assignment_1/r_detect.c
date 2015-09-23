@@ -5,6 +5,7 @@
 int r_detecter(peakstruct *peakdata, int current_peak){
 int xn = peakdata->PEAKS[1][current_peak];
 
+
 if (peakdata->THRESHOLD1 < xn){
 
 	peakdata->SPKF = 0.125*xn+0.875*peakdata->SPKF;
