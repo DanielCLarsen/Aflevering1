@@ -1,6 +1,8 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "sensor.h"
 
-void r_detecter(peakstruct *peakdata, int current_peak){
+int r_detecter(peakstruct *peakdata, int current_peak){
 int xn = peakdata->PEAKS[1][current_peak];
 
 if (peakdata->THRESHOLD1 < xn){
@@ -13,7 +15,9 @@ if (peakdata->THRESHOLD1 < xn){
 
 	peakdata->THRESHOLD2 = peakdata->THRESHOLD1*0.5;
 
+	return 1;
 
 }
+return 0;
 
 }

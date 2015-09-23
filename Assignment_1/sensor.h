@@ -13,17 +13,23 @@ typedef struct{
 	int p_xleft;
 	int p_xmid;
 	int p_xright;
-
-
 } datastruct;
 
 typedef struct{
 	int PEAKS[2][33];
 	int R_PEAKS[2][33];
- int NPKF;
-int SPKF;
-int THRESHOLD1;
-int THRESHOLD2;
+	int NPKF;
+	int SPKF;
+	int THRESHOLD1;
+	int THRESHOLD2;
+	int time;
+	int RRintervals1[8];
+	int RRintervals2[8];
+	int RRaverage1;
+	int RRaverage2;
+	int RRlow;
+	int RRhigh;
+	int RRmiss;
 
 } peakstruct;
 
@@ -42,4 +48,6 @@ int mw_filter(datastruct *dataset);
 
 int p_search(datastruct *dataset);
 
-void r_detecter(peakstruct *peakdata, int current_peak);
+int r_detecter(peakstruct *peakdata, int current_peak);
+
+int avg_check(peakstruct *peakdata,int current_r_interval);
