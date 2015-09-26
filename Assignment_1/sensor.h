@@ -3,6 +3,7 @@ typedef struct{
 	int sensor_input;
 	FILE *file_p;
 	int dz;
+	int dpeaks;
 	int raw_data[33];
 	int lp_data[33];
 	int hp_data[33];
@@ -17,7 +18,8 @@ typedef struct{
 } datastruct;
 
 typedef struct{
-	int PEAKS[2][33];
+	int peak_index;
+	int PEAKS[2][300];
 	int R_PEAKS[2][33];
 	int NPKF;
 	int SPKF;
@@ -30,6 +32,9 @@ typedef struct{
 	int RRlow;
 	int RRhigh;
 	int RRmiss;
+	int r_peak_index;
+	int RRintervals_index;
+	int pulse_counter;
 
 } peakstruct;
 
@@ -52,4 +57,4 @@ int r_detecter(peakstruct *peakdata, int current_peak);
 
 int avg_check(peakstruct *peakdata,int current_r_interval);
 
-int searchback(peakstruct *peakdata, datastruct *dataset, int index);
+int searchback(peakstruct *peakdata, datastruct *dataset,int iterations);
