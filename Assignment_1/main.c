@@ -7,28 +7,15 @@
 // declaring global variable, filename for data load simulation.
 static const char filename[] = "ECG.txt";
 
-void CallSearchback(int RecentRPeaks_index, datastruct* dataset) {
-	if (avg_check(&*dataset, dataset->RRintervals[RecentRPeaks_index])) {
-		//	searchback(&dataset,&dataset,r_peak_index);
-	}
-}
 
-void runFilters(datastruct* dataset) {
-	dataset->raw_data[dataset->ix] = getNextData(dataset->file_p); //retrieves the next line of data from the sensor
-	dataset->lp_data[dataset->ix] = lp_filter(&*dataset); //filters the data through low-pass
-	dataset->hp_data[dataset->ix] = hp_filter(&*dataset); //filters through high-pass
-	dataset->de_data[dataset->ix] = de_filter(&*dataset); //filters through derivative
-	dataset->sq_data[dataset->ix] = sq_filter(&*dataset); //filters through squared
-	dataset->mw_data[dataset->ix] = mw_filter(&*dataset);
-}
 
 int main(int argc, char *argv[]) {
 	datastruct dataset = { 0 }; //generates the struct object and initialises values at 0
 	int iterations = 0; //test variable, not to be implemented in final version
-	int peak_index = 0;
-	int r_peak_index = 0;
+	int timeelapsed = 0;	// elapsed time time since last r-peak
+	int CA = 0; //flag for cardic arrest
 	int RecentRPeaks_index = 0;
-	int RecentPeaks_index = 0;
+	dataset.dpeaks = 300;
 	dataset.ix = 0; //index tracker for reading/writing data-array elements
 	dataset.dz = 33; //tracker of the array lengths.
 	dataset.NPKF = 800;
@@ -47,17 +34,24 @@ int main(int argc, char *argv[]) {
 
 	//filter loop:
 	while (iterations <= 5000) {
-		runFilters(&dataset);
+		dataset.raw_data[dataset.ix] = getNextData(dataset.file_p); //retrieves the next line of data from the sensor
+		dataset.lp_data[dataset.ix] = lp_filter(&dataset); //filters the data through low-pass
+		dataset.hp_data[dataset.ix] = hp_filter(&dataset); //filters through high-pass
+		dataset.de_data[dataset.ix] = de_filter(&dataset); //filters through derivative
+		dataset.sq_data[dataset.ix] = sq_filter(&dataset); //filters through squared
+		dataset.mw_data[dataset.ix] = mw_filter(&dataset);
 
 		if (p_search(&dataset)) { //if peak at datapoint
-			addPeak(&dataset,peak_index,iterations);
+			addPeak(&dataset,iterations);
 
 			//Checks if peak is an R-peak and calculates
-			if (r_detecter(&dataset, peak_index)) { // returns 1 if the peak is an rpeak (function cll also updates peak struct)
-				addRPeak(&dataset,r_peak_index,peak_index,iterations);
+			if (r_detecter(&dataset, dataset.peak_index)) { // returns 1 if the peak is an rpeak (function cll also updates peak struct)
+				addRPeak(&dataset,iterations);
 
-				if (dataset.R_PEAKS[1][(r_peak_index - 1) % dataset.dz] != 0) { //if the previous point in the r_peaks[] is not 0
-					calcRRInterval(&dataset,RecentRPeaks_index,r_peak_index,iterations);
+				if (dataset.R_PEAKS[1][(dataset.r_peak_index - 1) % dataset.dz] != 0) { //if the previous point in the r_peaks[] is not 0
+
+					calcRRInterval(&dataset,RecentRPeaks_index,iterations);
+
 					RecentRPeaks_index = (RecentRPeaks_index + 1) % 8;
 
 					if (dataset.RRintervals[7] != 0) {
@@ -66,13 +60,27 @@ int main(int argc, char *argv[]) {
 							Average2sum += dataset.RRintervals[i];
 							dataset.RRaverage2 = Average2sum / 8;
 						}
-						CallSearchback(RecentRPeaks_index, &dataset);
-						printf("Average2 = %i \n",dataset.RRaverage2);
+						if(avg_check(&dataset,dataset.RRintervals[dataset.RRintervals_index])&&CA == 0){
+							searchback(&dataset,&dataset,iterations);
+
+						}
 					}
 				}
-				r_peak_index++;
+				dataset.pulse_counter++;
+				dataset.r_peak_index++;
 			}
-			peak_index = (peak_index + 1);
+				dataset.r_peak_index++;
+
+			CA = 0; //resets the CA flag
+			//checks for heartstop:
+			if (dataset.RRaverage2){
+			 timeelapsed = iterations-dataset.R_PEAKS[0][dataset.r_peak_index-1];
+			if (dataset.RRaverage2*5<timeelapsed)
+				printf("Warning: cardiac arrest!, %i \n", timeelapsed);
+				//CA = 1;
+
+			}
+			dataset.peak_index++;
 		}
 		dataset.ix = (dataset.ix + 1) % dataset.dz; // increments the index for the data-arrays
 
@@ -80,8 +88,13 @@ int main(int argc, char *argv[]) {
 		iterations++;
 		if (iterations % 10 == 0) { //increments time every 10 iterations ie. every 1/25 sec.
 			dataset.time++;
+
+		if (iterations%1250 == 0) { //prints the patients pulse every 1250 iterations (ie every 5 seconds)
+			printf("Pulse: %i \n",dataset.pulse_counter*12);
+			dataset.pulse_counter = 0;
 		}
 
 	}
+}
 	return 0;
 }
