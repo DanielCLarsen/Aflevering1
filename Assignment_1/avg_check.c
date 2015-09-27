@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sensor.h"
+#include "dataManagement.h"
 
-int avg_check(peakstruct *peakdata,int current_r_interval){
+int avg_check(datastruct *peakdata, int current_r_interval){
 
 	if (peakdata->RRhigh == 0){
 

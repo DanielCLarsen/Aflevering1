@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "sensor.h"
+#include "dataManagement.h"
 
-int r_detecter(peakstruct *peakdata, int current_peak){
+
+int r_detecter(datastruct *peakdata, int current_peak){
 int xn = peakdata->PEAKS[1][current_peak];
 
 
