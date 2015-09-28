@@ -3,23 +3,22 @@
 #include "dataManagement.h"
 
 
-int r_detecter(datastruct *peakdata, int current_peak){
-int xn = peakdata->PEAKS[1][current_peak];
+int r_detecter(datastruct *dataset, int current_peak){
+int xn = dataset->PEAKS[1][current_peak];
 
 
-if (peakdata->THRESHOLD1 < xn){
-
-	peakdata->SPKF = 0.125*xn+0.875*peakdata->SPKF;
-
-	peakdata->NPKF = 0.125*xn+0.875*peakdata->NPKF;
-
-	peakdata->THRESHOLD1 = peakdata->NPKF + 0.25*(peakdata->SPKF - peakdata->NPKF);
-
-	peakdata->THRESHOLD2 = peakdata->THRESHOLD1*0.5;
+if (dataset->THRESHOLD1 < xn && dataset->PEAKS[0][current_peak]-dataset->PEAKS[0][current_peak-1] > 25){
+	//extra demand: r-peak must be at least 1/10s away from previous r-peak
 
 	return 1;
 
 }
+	dataset->NPKF = 0.125*xn+0.875*dataset->NPKF;
+
+	dataset->THRESHOLD1 = dataset->NPKF + 0.25*(dataset->SPKF - dataset->NPKF);
+
+	dataset->THRESHOLD2 = dataset->THRESHOLD1*0.5;
+
 return 0;
 
 }

@@ -2,62 +2,57 @@
 #include <stdlib.h>
 #include "dataManagement.h"
 
-int searchback(datastruct *peakdata, datastruct *dataset,int iterations){
+int searchback(datastruct *dataset,int iterations){
 
 
-	for(int i=1; i<=dataset->dz; i++){
-		if(peakdata->PEAKS[1][(peakdata->peak_index-i)%dataset->dpeaks]>peakdata->THRESHOLD2){
-			//if(peakdata->PEAKS[1][(peakdata->peak_index-i)%dataset->dpeaks] >= peakdata->THRESHOLD1){
+	for(int i=1; i<=(DZ*10); i++){
+		if(dataset->PEAKS[1][(dataset->peak_index-i)%330] > dataset->THRESHOLD2){
+			//if(dataset->PEAKS[1][(dataset->peak_index-i)%dataset->dpeaks] >= dataset->THRESHOLD1){
 			//break;
 			//}
 
 			//moves the last R-peak forward, to make space for the newly found R-peak
-			peakdata->R_PEAKS[0][(peakdata->r_peak_index+1) % dataset->dz]=peakdata->R_PEAKS[0][(peakdata->r_peak_index)% dataset->dz];
-			peakdata->R_PEAKS[1][(peakdata->r_peak_index+1) % dataset->dz] =peakdata->R_PEAKS[1][(peakdata->r_peak_index)% dataset->dz];
+			dataset->R_PEAKS[0][(dataset->r_peak_index+1) % DZ]=dataset->R_PEAKS[0][(dataset->r_peak_index)% DZ];
+			dataset->R_PEAKS[1][(dataset->r_peak_index+1) % DZ] =dataset->R_PEAKS[1][(dataset->r_peak_index)% DZ];
 
 			//stores the found peak as an r-peak:
-			peakdata->R_PEAKS[0][peakdata->r_peak_index % dataset->dz] = iterations-i; //iteration count is stored
-			peakdata->R_PEAKS[1][peakdata->r_peak_index % dataset->dz] = peakdata->PEAKS[1][(peakdata->peak_index-i) % dataset->dpeaks]; //stores the peak value
-			printf("R_peak at: time = %i s, value of r_peak = %i (searchback) \n",peakdata->R_PEAKS[0][(peakdata->r_peak_index)%dataset->dz]/250,peakdata->R_PEAKS[1][(peakdata->r_peak_index)%dataset->dz]);
+			dataset->R_PEAKS[0][dataset->r_peak_index % DZ] = dataset->PEAKS[0][(dataset->peak_index-i)%330]; //iteration count is stored
+			dataset->R_PEAKS[1][dataset->r_peak_index % DZ] = dataset->PEAKS[1][(dataset->peak_index-i)%330]; //stores the peak value
+			printf("R_peak at: time = %i s, value of r_peak = %i (searchback) \n",
+					dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ]/250,
+					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]);
 
 			//updates values:
-			int pn = peakdata->R_PEAKS[1][peakdata->r_peak_index % dataset->dz];
+			int pn = dataset->R_PEAKS[1][dataset->r_peak_index % DZ];
 
-			peakdata->SPKF = 0.25*pn+0.75*peakdata->SPKF;
+			dataset->SPKF = 0.25*pn+0.75*dataset->SPKF;
 
-			peakdata->THRESHOLD1 = peakdata->NPKF + 0.25*(peakdata->SPKF - peakdata->NPKF);
+			dataset->THRESHOLD1 = dataset->NPKF + 0.25*(dataset->SPKF - dataset->NPKF);
 
-			peakdata->THRESHOLD2 = peakdata->THRESHOLD1*0.5;
+			dataset->THRESHOLD2 = dataset->THRESHOLD1*0.5;
 
 			//recalculates the RR average:
-			peakdata->RRintervals[peakdata->RRintervals_index]= (iterations-peakdata->R_PEAKS[0][(peakdata->r_peak_index-1)%dataset->dz]);
+			dataset->RRintervals[dataset->RRintervals_index]= (iterations-dataset->R_PEAKS[0][(dataset->r_peak_index-1)%DZ]);
 
-			peakdata->RRintervals_index = (peakdata->RRintervals_index+1)%8;
+			dataset->RRintervals_index = (dataset->RRintervals_index+1)%8;
 			for(int i=0; i < 8 ;i++){
 				int Average2sum=0;
-				Average2sum+=peakdata->RRintervals[i];
-				peakdata->RRaverage1 = Average2sum/8;
+				Average2sum+=dataset->RRintervals[i];
+				dataset->RRaverage1 = Average2sum/8;
+				//dataset->RRaverage2 = dataset->RRaverage1;
 			}
-			peakdata->RRlow = (peakdata->RRaverage1 * 0.92);
-			peakdata->RRhigh = (peakdata->RRaverage1 * 1.16);
-			peakdata->RRmiss = (peakdata->RRaverage1 * 1.66);
+			dataset->RRlow = (dataset->RRaverage1 * 0.92);
+			dataset->RRhigh = (dataset->RRaverage1 * 1.16);
+			dataset->RRmiss = (dataset->RRaverage1 * 1.66);
 
-			if (peakdata->R_PEAKS[1][peakdata->r_peak_index % dataset->dz]<peakdata->THRESHOLD2){
-				printf("Warning: heartbeat too weak!\n");
-			}
-
-			//peakdata->RRaverage2 = peakdata->RRaverage1;
-			peakdata->pulse_counter++;
-			peakdata->r_peak_index++;
-			if (i == 31){
-
-				printf("Searchback out of bounds\n");
-
+			if (dataset->R_PEAKS[1][dataset->r_peak_index % DZ] < dataset->THRESHOLD2){
+				printf("Warning: heart beat too weak!\n");
 			}
 
-
-
-
+			//dataset->RRaverage2 = dataset->RRaverage1;
+			dataset->pulse_counter++;
+			dataset->r_peak_index++;
+			dataset->RRmiss_count = 0;
 			break;
 
 		}
