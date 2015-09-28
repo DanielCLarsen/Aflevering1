@@ -11,10 +11,10 @@ int main(int argc, char *argv[]) {
 	datastruct dataset = { 0 }; //generates the struct object and initialises values at 0
 	int iterations = 0; //test variable, not to be implemented in final version
 	int timeelapsed = 0;	// elapsed time since last r-peak
+	int RR;
 	int RecentRPeaks_index = 0;
 	int pulse = 0;
 	int ix = 0;		//is set = dataset.ix every loop, shortens our code.
-	int sum_RRintervals = 0;
 	dataset.NPKF = 800;
 	dataset.SPKF = 5000;
 	dataset.THRESHOLD1 = 4000;
@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
 
 
 		if (p_search(&dataset)) { //if peak at datapoint
+
 			addPeak(&dataset,iterations);
 
 			//Checks if peak is an R-peak and calculates
@@ -50,25 +51,19 @@ int main(int argc, char *argv[]) {
 				if(dataset.R_PEAKS[1][8]==0){
 					addRPeak(&dataset,iterations);
 					if(dataset.R_PEAKS[1][(dataset.r_peak_index -1) % DZ] != 0){
-						calcRRInterval(&dataset,RecentRPeaks_index,iterations);
-						RecentRPeaks_index++;
+					dataset.RRintervals[dataset.RRintervals_index] = calcRRInterval(&dataset,iterations);
+					dataset.RecentRR[dataset.RecentRR_index] = dataset.RRintervals[dataset.RRintervals_index];
+					dataset.RRintervals_index++;
+					dataset.RecentRR_index++;
 					}
+					dataset.r_peak_index++;
 				}
 
 				else { //if the previous point in the r_peaks[] is not 0
 
-					calcRRInterval(&dataset,RecentRPeaks_index,iterations);
+					RR = calcRRInterval(&dataset,iterations);
 
-
-					for (int i = 0; i < 8; i++) {
-						sum_RRintervals += dataset.RRintervals[i];
-
-					}
-					dataset.RRaverage2 = sum_RRintervals / 8;
-					sum_RRintervals = 0;
-
-
-					if(avg_check(&dataset,dataset.RRintervals[dataset.RRintervals_index])){
+					if(avg_check(&dataset,RR,iterations)){
 						searchback(&dataset,iterations);
 
 					}
@@ -80,18 +75,13 @@ int main(int argc, char *argv[]) {
 
 				//addRPeak(&dataset,iterations);
 
-				if (dataset.R_PEAKS[1][dataset.r_peak_index % DZ] < dataset.THRESHOLD2){
-					printf("Warning: heart beat too weak!\n");
-				}
-
-
-
-					RecentRPeaks_index = (RecentRPeaks_index + 1) % 8;
+//				if (dataset.R_PEAKS[1][dataset.r_peak_index % DZ] < dataset.THRESHOLD2){
+//					printf("Warning: heart beat too weak!\n");
+//				}
 
 
 				//}
 				dataset.pulse_counter++;
-				dataset.r_peak_index++;
 			}
 
 

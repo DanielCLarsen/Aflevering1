@@ -18,26 +18,23 @@ int searchback(datastruct *dataset,int iterations){
 			//stores the found peak as an r-peak:
 			dataset->R_PEAKS[0][dataset->r_peak_index % DZ] = dataset->PEAKS[0][(dataset->peak_index-i)%330]; //iteration count is stored
 			dataset->R_PEAKS[1][dataset->r_peak_index % DZ] = dataset->PEAKS[1][(dataset->peak_index-i)%330]; //stores the peak value
-			printf("R_peak at: time = %i s, value of r_peak = %i (searchback) \n",
-					dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ]/250,
-					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]);
+			printf("R_peak at: iteration = %i , value of r_peak = %i (searchback) \n",
+//					dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ]/250,
+//					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]
+					dataset->R_PEAKS[0][dataset->r_peak_index % DZ], dataset->R_PEAKS[1][dataset->r_peak_index % DZ] 		);
 
 			//updates values:
 			int pn = dataset->R_PEAKS[1][dataset->r_peak_index % DZ];
 
 			dataset->SPKF = 0.25*pn+0.75*dataset->SPKF;
 
-			dataset->THRESHOLD1 = dataset->NPKF + 0.25*(dataset->SPKF - dataset->NPKF);
+			//Store RR value in RecentRR
+			dataset->RecentRR[dataset->RecentRR_index]= (iterations-dataset->R_PEAKS[0][(dataset->r_peak_index-1)%DZ]);
 
-			dataset->THRESHOLD2 = dataset->THRESHOLD1*0.5;
-
-			//recalculates the RR average:
-			dataset->RRintervals[dataset->RRintervals_index]= (iterations-dataset->R_PEAKS[0][(dataset->r_peak_index-1)%DZ]);
-
-			dataset->RRintervals_index = (dataset->RRintervals_index+1)%8;
+			dataset->RecentRR_index = (dataset->RecentRR_index+1)%8;
 			for(int i=0; i < 8 ;i++){
 				int Average2sum=0;
-				Average2sum+=dataset->RRintervals[i];
+				Average2sum+=dataset->RecentRR[i];
 				dataset->RRaverage1 = Average2sum/8;
 				//dataset->RRaverage2 = dataset->RRaverage1;
 			}
@@ -49,9 +46,13 @@ int searchback(datastruct *dataset,int iterations){
 				printf("Warning: heart beat too weak!\n");
 			}
 
+			dataset->THRESHOLD1 = dataset->NPKF + 0.25*(dataset->SPKF - dataset->NPKF);
+
+			dataset->THRESHOLD2 = dataset->THRESHOLD1*0.5;
+
 			//dataset->RRaverage2 = dataset->RRaverage1;
 			dataset->pulse_counter++;
-			dataset->r_peak_index++;
+			dataset->r_peak_index+=2;
 			dataset->RRmiss_count = 0;
 			break;
 

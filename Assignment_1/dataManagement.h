@@ -25,11 +25,13 @@ typedef struct{
 	int THRESHOLD2;
 	int time;
 	int RRintervals[8];
+	int RecentRR[8];
 	int RRaverage1;
 	int RRaverage2;
 	int RRlow;
 	int RRhigh;
 	int RRmiss;
+	int RecentRR_index;
 	int r_peak_index;
 	int peak_index;
 	int RRintervals_index;
@@ -45,12 +47,12 @@ void addPeak(datastruct *dataset, int iterations);
 
 void addRPeak(datastruct *dataset, int iterations);
 
-void calcRRInterval (datastruct *dataset, int RecentRPeaks_index, int iterations);
+int calcRRInterval (datastruct *dataset, int iterations);
 
 int p_search(datastruct *dataset);
 
 int r_detecter(datastruct *dataset, int current_peak);
 
-int avg_check(datastruct *dataset,int current_r_interval);
+int avg_check(datastruct *dataset,int current_r_interval, int iterations);
 
 int searchback(datastruct *dataset, int index);
