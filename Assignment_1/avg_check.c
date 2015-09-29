@@ -24,12 +24,13 @@ int avg_check(datastruct *dataset, int current_r_interval, int iterations) {
 
 		dataset->R_PEAKS[1][dataset->r_peak_index%DZ] = dataset->PEAKS[1][dataset->peak_index%(DZ*10)];
 
-		printf("R_peak at: iteration = %i, value of r_peak = %i \n",
-				//(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])/250,
-//					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]
-						dataset->R_PEAKS[0][dataset->r_peak_index%DZ],dataset->R_PEAKS[1][dataset->r_peak_index%DZ]);
+		printf("R-peak at %i.%i s, value: %i \n",
+					(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])/250,
+					(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])%250*10/250,
+					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]);
 
 		dataset->r_peak_index++;
+		dataset->pulse_counter++;
 
 		return 0;
 	} else {
@@ -41,11 +42,13 @@ int avg_check(datastruct *dataset, int current_r_interval, int iterations) {
 
 			dataset->R_PEAKS[1][dataset->r_peak_index%DZ] = dataset->PEAKS[1][dataset->peak_index%(DZ*10)];
 
-			printf("R_peak at: iteration = %i, value of r_peak = %i \n",
-					//(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])/250,
-//					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]
-							dataset->R_PEAKS[0][dataset->r_peak_index%DZ],dataset->R_PEAKS[1][dataset->r_peak_index%DZ]);
-			dataset->r_peak_index = (dataset->r_peak_index + 1) % DZ;
+			printf("R-peak at %i.%i s, value: %i \n",
+						(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])/250,
+						(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])%250*10/250,
+						dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]);
+
+			dataset->r_peak_index++;
+			dataset->pulse_counter++;
 
 			dataset->RecentRR[dataset->RecentRR_index] = current_r_interval;
 

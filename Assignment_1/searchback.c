@@ -18,10 +18,12 @@ int searchback(datastruct *dataset,int iterations){
 			//stores the found peak as an r-peak:
 			dataset->R_PEAKS[0][dataset->r_peak_index % DZ] = dataset->PEAKS[0][(dataset->peak_index-i)%330]; //iteration count is stored
 			dataset->R_PEAKS[1][dataset->r_peak_index % DZ] = dataset->PEAKS[1][(dataset->peak_index-i)%330]; //stores the peak value
-			printf("R_peak at: iteration = %i , value of r_peak = %i (searchback) \n",
-//					dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ]/250,
-//					dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]
-					dataset->R_PEAKS[0][dataset->r_peak_index % DZ], dataset->R_PEAKS[1][dataset->r_peak_index % DZ] 		);
+
+			printf("R-peak at %i.%i s, value: %i \n",
+						(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])/250,
+						(dataset->R_PEAKS[0][(dataset->r_peak_index)%DZ])%250*10/250,
+						dataset->R_PEAKS[1][(dataset->r_peak_index)%DZ]);
+
 
 			//updates values:
 			int pn = dataset->R_PEAKS[1][dataset->r_peak_index % DZ];

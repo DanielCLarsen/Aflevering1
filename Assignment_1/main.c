@@ -3,6 +3,7 @@
 #include "dataManagement.h"
 #include "sensor.h"
 #include "filters.h"
+#include <time.h> //used in the analysis part of the program
 
 // declaring global variable, filename for data load simulation.
 static const char filename[] = "ECG.txt";
@@ -10,11 +11,12 @@ static const char filename[] = "ECG.txt";
 int main(int argc, char *argv[]) {
 	datastruct dataset = { 0 }; //generates the struct object and initialises values at 0
 	int iterations = 0; //test variable, not to be implemented in final version
-	int timeelapsed = 0;	// elapsed time since last r-peak
 	int RR;
-	int RecentRPeaks_index = 0;
-	int pulse = 0;
+	int pulse = 0;	//used to calculate the current pulse, (beats per minute) based on the last 5 seconds.
 	int ix = 0;		//is set = dataset.ix every loop, shortens our code.
+	clock_t start, end;
+	//double cpu_time_used;//used in the analysis part of the program
+	//double cputime[10000];//used in the analysis part of the program
 	dataset.NPKF = 800;
 	dataset.SPKF = 5000;
 	dataset.THRESHOLD1 = 4000;
@@ -30,7 +32,9 @@ int main(int argc, char *argv[]) {
 	dataset.file_p = fopen(filename, "r");
 
 	//filter loop:
+	//start = clock();//used in the analysis part of the program
 	while (iterations <= 10000) {
+
 		ix = dataset.ix;
 		dataset.raw_data[ix] = getNextData(dataset.file_p); //retrieves the next line of data from the sensor
 		dataset.lp_data[ix] = lp_filter(&dataset); //filters the data through low-pass
@@ -57,6 +61,7 @@ int main(int argc, char *argv[]) {
 					dataset.RecentRR_index++;
 					}
 					dataset.r_peak_index++;
+					dataset.pulse_counter++;
 				}
 
 				else { //if the previous point in the r_peaks[] is not 0
@@ -65,26 +70,9 @@ int main(int argc, char *argv[]) {
 
 					if(avg_check(&dataset,RR,iterations)){
 						searchback(&dataset,iterations);
-
 					}
-
-
 				}
-
-
-
-				//addRPeak(&dataset,iterations);
-
-//				if (dataset.R_PEAKS[1][dataset.r_peak_index % DZ] < dataset.THRESHOLD2){
-//					printf("Warning: heart beat too weak!\n");
-//				}
-
-
-				//}
-				dataset.pulse_counter++;
 			}
-
-
 			dataset.peak_index++;
 		}
 
@@ -94,7 +82,7 @@ int main(int argc, char *argv[]) {
 			dataset.RRmiss_count = 0;
 		}
 
-		dataset.ix = (ix + 1) % DZ; // increments the index for the data-arrays
+		dataset.ix = (ix + 1)%DZ; // increments the index for the data-arrays
 
 		//used to control the amount of iterations:
 		iterations++;
@@ -103,19 +91,27 @@ int main(int argc, char *argv[]) {
 
 		//prints the patients pulse every 1250 iterations (ie every 5 seconds)
 		if (iterations%1250 == 0) {
-			pulse = (dataset.pulse_counter/(dataset.pulse_time/250))*60;
+
+			pulse = dataset.pulse_counter*12; //determines the pulse if the 5 seconds are extended to 60.
+
 			printf("Pulse: %i \n",pulse);
-			dataset.pulse[dataset.pulse_index%100] = pulse;
+			dataset.pulse[dataset.pulse_index%100] = pulse; //stores the pulse
 			dataset.pulse_counter = 0;
 			dataset.pulse_time = 0;
 			dataset.pulse_index++;
+
 			if (pulse == 0){
-				dataset.RRmiss_count = 5;
+				dataset.RRmiss_count = 5; //if no pulse, cardiac arrest
 			}
 		}
+	}	//end of while loop
+	//end = clock();  //used in the analysis part of the program
 
+	// cpu_time_used = ((double) (end-start))/CLOCKS_PER_SEC; //used in the analysis part of the program
 
-}
-	printf("test");
+	//printf("\n");
+	//printf("CPU time: %f\n",cpu_time_used); //used in the analysis part of the program
+	//printf("\n");
+
 	return 0;
 }

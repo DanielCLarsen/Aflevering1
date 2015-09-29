@@ -1,23 +1,20 @@
-#define DZ 33 //defines the length of our data arrays
+//Header file for the entire program (except for sensor.c)
+
+#define DZ 33 //defines the length of our standard data arrays
 
 typedef struct{
 
 	int sensor_input;
 	FILE *file_p;
-	int dz;
-	int raw_data[DZ];
-	int lp_data[DZ];
-	int hp_data[DZ];
-	int de_data[DZ];
-	int sq_data[DZ];
-	int mw_data[DZ];
-	int ix;
-	int time_delay;
-	int p_xleft;
-	int p_xmid;
-	int p_xright;
+	int raw_data[DZ]; 	//data array for data comming from the sensor
+	int lp_data[DZ]; 	//data array, low pass filter (output)
+	int hp_data[DZ]; 	//data array, high pass filter (output)
+	int de_data[DZ];	//data array, derivative filter (output)
+	int sq_data[DZ];	//data array, squaring filter (output)
+	int mw_data[DZ];	//data array, moving window integration filter (output), used for peak detection.
+	int ix;				//index counter, tracking the element to write to/from in the above data arrays.
 
-	int PEAKS[2][330];
+	int PEAKS[2][DZ*10];  //stores the DZ*10 latest detected peaks
 	int R_PEAKS[2][DZ];
 	int NPKF;
 	int SPKF;
