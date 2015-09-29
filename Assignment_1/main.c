@@ -11,7 +11,7 @@ static const char filename[] = "ECG.txt";
 int main(int argc, char *argv[]) {
 	datastruct dataset = { 0 }; //generates the struct object and initialises values at 0
 	int iterations = 0; //test variable, not to be implemented in final version
-	int RR;
+	int RR; //temporary R-peak interval
 	int pulse = 0;	//used to calculate the current pulse, (beats per minute) based on the last 5 seconds.
 	int ix = 0;		//is set = dataset.ix every loop, shortens our code.
 	clock_t start, end;
@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
 	while (iterations <= 10000) {
 
 		ix = dataset.ix;
+		//Sends the datapoint the the filters.
 		dataset.raw_data[ix] = getNextData(dataset.file_p); //retrieves the next line of data from the sensor
 		dataset.lp_data[ix] = lp_filter(&dataset); //filters the data through low-pass
 		dataset.hp_data[ix] = hp_filter(&dataset); //filters through high-pass
@@ -50,8 +51,9 @@ int main(int argc, char *argv[]) {
 			addPeak(&dataset,iterations);
 
 			//Checks if peak is an R-peak and calculates
-			if (r_detecter(&dataset, (dataset.peak_index)%330)) { // returns 1 if the peak is an rpeak (function cll also updates peak struct)
+			if (r_detecter(&dataset, (dataset.peak_index)%330)) {
 
+				//adds the first 9 data points and calculates intervals for RRaverage1 and RRaverage2's arrays.
 				if(dataset.R_PEAKS[1][8]==0){
 					addRPeak(&dataset,iterations);
 					if(dataset.R_PEAKS[1][(dataset.r_peak_index -1) % DZ] != 0){
@@ -63,11 +65,12 @@ int main(int argc, char *argv[]) {
 					dataset.r_peak_index++;
 					dataset.pulse_counter++;
 				}
-
-				else { //if the previous point in the r_peaks[] is not 0
+				else { //When the first 9 points are calculated it will always reach the else branch.
 
 					RR = calcRRInterval(&dataset,iterations);
 
+					//checks if the calculated peak goes through the criterias of being an R-peak
+					//if not, avg_check will return 1, and the searchback will be called.
 					if(avg_check(&dataset,RR,iterations)){
 						searchback(&dataset,iterations);
 					}

@@ -3,7 +3,8 @@
 #include "dataManagement.h"
 #include "filters.h"
 
-
+//All filters fetch data from the datastruct using pointers. Storing them in temporary variables for
+//making it easier to work it.
 int lp_filter(datastruct *dataset){
 	int yn1 = dataset->lp_data[(dataset->ix+DZ-1)%DZ];
 	int yn2 = dataset->lp_data[(dataset->ix+DZ-2)%DZ];
